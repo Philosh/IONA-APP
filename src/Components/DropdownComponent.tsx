@@ -28,6 +28,7 @@ const DropDown: React.FC = () => {
         "x-api-key": process.env.REACT_APP_API_KEY,
       },
     });
+    console.log("Breedlist", res.data);
     return res.data;
   });
 
@@ -38,11 +39,11 @@ const DropDown: React.FC = () => {
   return (
     <Dropdown>
       <ToggleButton variant="light" id="dropdown-basic">
-        {breedSelect}
+        {breedSelect?.name}
       </ToggleButton>
       <Dropdown.Menu>
         {catBreeds.map((e: CatBreed) => (
-          <Dropdown.Item onClick={() => setBreedSelect(e.name)} key={e.id}>
+          <Dropdown.Item onClick={() => setBreedSelect(e)} key={e.id}>
             {e.name}
           </Dropdown.Item>
         ))}

@@ -7,19 +7,27 @@ import DropDown from "./Components/DropdownComponent";
 import CatList from "./Components/CatListComponent";
 
 type AppContextType = {
-  breedSelect: string | null;
-  setBreedSelect: React.Dispatch<React.SetStateAction<string>>;
+  breedSelect: {
+    name: string;
+    id: string;
+  };
+  setBreedSelect: React.Dispatch<
+    React.SetStateAction<{ name: string; id: string }>
+  >;
 };
 
 const iAppContextState = {
-  breedSelect: "Select Breed",
+  breedSelect: { name: "Select Breed", id: "" },
   setBreedSelect: () => {},
 };
 
 export const AppContext = createContext<AppContextType>(iAppContextState);
 
 function App() {
-  const [breedSelect, setBreedSelect] = useState("Select Breed");
+  const [breedSelect, setBreedSelect] = useState({
+    name: "Select Breed",
+    id: "",
+  });
   const client = new QueryClient();
   return (
     <div className="App">
