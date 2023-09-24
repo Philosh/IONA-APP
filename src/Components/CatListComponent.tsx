@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 import "../App.css";
 import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
 
 import { Col, Container, Image, Row } from "react-bootstrap";
 
@@ -38,8 +39,6 @@ const CatList: React.FC = () => {
   const { breedSelect } = useContext(AppContext);
   const nImages = breedSelect.id === "" ? "12" : "100";
   const catImagesEndPoint = `/images/search?limit=${nImages}&breed_ids=${breedSelect.id}&api_key=${process.env.REACT_APP_API_KEY}`;
-  console.log("breedSelect", breedSelect);
-  console.log(catAPIURL + catImagesEndPoint);
 
   const {
     data: catList,
@@ -51,7 +50,6 @@ const CatList: React.FC = () => {
         "x-api-key": process.env.REACT_APP_API_KEY,
       },
     });
-    console.log("Res", res.data);
     return res.data;
   });
 
@@ -72,9 +70,12 @@ const CatList: React.FC = () => {
               <ImageCol xs={6} md={3} lg={3} key={cat.id}>
                 <ImageDiv>
                   <StyledImage src={cat.url}></StyledImage>
-                  <Button className="detailButton" variant="primary">
-                    View Details
-                  </Button>
+
+                  <Link to={`/${cat.id}`}>
+                    <Button className="detailButton" variant="primary">
+                      Details
+                    </Button>
+                  </Link>
                 </ImageDiv>
               </ImageCol>
             );

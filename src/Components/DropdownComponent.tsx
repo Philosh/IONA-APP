@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import Axios from "axios";
 import styled from "styled-components";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -23,12 +23,13 @@ const DropDown: React.FC = () => {
   const { breedSelect, setBreedSelect } = useContext(AppContext);
 
   const { data: catBreeds, isLoading } = useQuery(["catBreeds"], async () => {
+    console.log("selectBreed", breedSelect);
+
     const res = await Axios.get(catAPIURL + breedsEndpoint, {
       headers: {
         "x-api-key": process.env.REACT_APP_API_KEY,
       },
     });
-    console.log("Breedlist", res.data);
     return res.data;
   });
 
