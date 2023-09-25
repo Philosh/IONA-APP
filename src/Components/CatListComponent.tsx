@@ -3,7 +3,7 @@ import { AppContext } from "../App";
 import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 import "../App.css";
-import Button from "react-bootstrap/Button";
+import { Button, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import { Col, Container, Image, Row } from "react-bootstrap";
@@ -42,9 +42,11 @@ const CatList: React.FC = () => {
 
   const {
     data: catList,
-    isLoading,
+    isFetching,
     refetch,
+    isError,
   } = useQuery(["catList"], async () => {
+    console.log("Request sent");
     const res = await Axios.get(catAPIURL + catImagesEndPoint, {
       headers: {
         "x-api-key": process.env.REACT_APP_API_KEY,
@@ -53,7 +55,6 @@ const CatList: React.FC = () => {
     return res.data;
   });
 
-  const [catListToShow, setCatListToShow] = useState<CatImage[]>();
   const [totalCats, setTotalCats] = useState<CatImage[]>();
   const catsPerLoad = 6;
 
@@ -79,8 +80,17 @@ const CatList: React.FC = () => {
     setTotalCats(catList.slice(0, ref.current));
   };
 
-  if (isLoading) {
-    return <h1>Loading...</h1>;
+  if (isFetching) {
+    return <h1>Loading Catlist...</h1>;
+  } else if (isError) {
+    return (
+      <Alert
+        style={{ width: "80%", marginLeft: "auto", marginRight: "auto" }}
+        variant="warning"
+      >
+        “Apologies but we could not this cat for you at this time! Miau!”
+      </Alert>
+    );
   } else
     return (
       <div>
@@ -102,7 +112,6 @@ const CatList: React.FC = () => {
               );
             })}
           </Row>
-          {catList?.length}
           {ref.current < catList.length + catsPerLoad && (
             <Button
               style={{ float: "left", marginTop: "3em" }}

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import Axios from "axios";
 import styled from "styled-components";
-import Dropdown from "react-bootstrap/Dropdown";
+import { Dropdown, Alert } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import { AppContext } from "../App";
 
@@ -22,8 +22,12 @@ const ToggleButton = styled(Dropdown.Toggle)`
 const DropDown: React.FC = () => {
   const { breedSelect, setBreedSelect } = useContext(AppContext);
 
-  const { data: catBreeds, isLoading } = useQuery(
-    ["catBreeds", breedSelect],
+  const {
+    data: catBreeds,
+    isFetching,
+    isError,
+  } = useQuery(
+    ["catBreeds"],
     async () => {
       const res = await Axios.get(catAPIURL + breedsEndpoint, {
         headers: {
@@ -31,11 +35,23 @@ const DropDown: React.FC = () => {
         },
       });
       return res.data;
-    }
+    },
+    { enabled: breedSelect.name === "Select Breed" }
   );
 
-  if (isLoading) {
-    return <h1>Loading...</h1>;
+  if (isFetching) {
+    return <h1>Loading DropDown...</h1>;
+  }
+
+  if (isError) {
+    return (
+      <Alert
+        style={{ width: "50%", marginLeft: "auto", marginRight: "auto" }}
+        variant="warning"
+      >
+        “Apologies but we could not load cat Breeds for you at this time! Miau!”
+      </Alert>
+    );
   }
 
   return (
@@ -44,11 +60,12 @@ const DropDown: React.FC = () => {
         {breedSelect?.name}
       </ToggleButton>
       <Dropdown.Menu>
-        {catBreeds.map((e: CatBreed) => (
-          <Dropdown.Item onClick={() => setBreedSelect(e)} key={e.id}>
-            {e.name}
-          </Dropdown.Item>
-        ))}
+        {catBreeds &&
+          catBreeds.map((e: CatBreed) => (
+            <Dropdown.Item onClick={() => setBreedSelect(e)} key={e.id}>
+              {e.name}
+            </Dropdown.Item>
+          ))}
       </Dropdown.Menu>
     </Dropdown>
   );

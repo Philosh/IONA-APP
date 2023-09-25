@@ -1,9 +1,7 @@
 import { useParams } from "react-router-dom";
-import { Card, Container, Button } from "react-bootstrap";
+import { Card, Container, Button, Alert } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import Axios from "axios";
-import { AppContext } from "../App";
-import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import "../App.css";
@@ -11,11 +9,14 @@ import "../App.css";
 const catAPIURL = process.env.REACT_APP_API_URL;
 
 const Cat: React.FC = () => {
-  const { breedSelect } = useContext(AppContext);
   const { id: catId } = useParams();
   const catDetailEndPoint = `/images/${catId}`;
 
-  const { data: catDetails, isLoading } = useQuery(["catDetails"], async () => {
+  const {
+    data: catDetails,
+    isFetching,
+    isError,
+  } = useQuery(["catDetails"], async () => {
     const res = await Axios.get(catAPIURL + catDetailEndPoint, {
       headers: {
         "x-api-key": process.env.REACT_APP_API_KEY,
@@ -24,12 +25,22 @@ const Cat: React.FC = () => {
     return res.data;
   });
 
-  if (isLoading) {
+  if (isFetching) {
     return <h1>Loading...</h1>;
   }
 
-  const catInfo = catDetails.breeds[0];
+  if (isError) {
+    return (
+      <Alert
+        style={{ width: "80%", marginLeft: "auto", marginRight: "auto" }}
+        variant="warning"
+      >
+        “Apologies but we could not load new cats for you at this time! Miau!”
+      </Alert>
+    );
+  }
 
+  const catInfo = catDetails.breeds[0];
   return (
     <Container>
       <Card
