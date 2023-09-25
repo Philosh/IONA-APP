@@ -61,7 +61,7 @@ const DropDown: React.FC = () => {
       <ToggleButton variant="light" id="dropdown-basic">
         {breedSelect?.name}
       </ToggleButton>
-      <Dropdown.Menu>
+      <Dropdown.Menu style={{ maxHeight: "50em", overflowY: "scroll" }}>
         {catBreedList &&
           catBreedList.map((e: CatBreed) => (
             <Dropdown.Item onClick={() => setBreedSelect(e)} key={e.id}>

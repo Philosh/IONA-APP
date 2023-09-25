@@ -80,6 +80,8 @@ const CatList: React.FC = () => {
       if (prevSelectName.current !== breedSelect.name) {
         setCatsDisplayed(catDetailsList.slice(0, catsPerLoad));
         prevSelectName.current = breedSelect.name;
+      } else {
+        ref.current = catsDisplayed.length + 1;
       }
     }
     ref.current += catsPerLoad;
@@ -125,7 +127,7 @@ const CatList: React.FC = () => {
               );
             })}
           </Row>
-          {catDetailsList.length > catsDisplayed.length && (
+          {catDetailsList.length + catsPerLoad > ref.current && (
             <Button
               style={{ float: "left", marginTop: "3em" }}
               variant="success"
