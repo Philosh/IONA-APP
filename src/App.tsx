@@ -32,6 +32,8 @@ type AppContextType = {
   setCatBreedList: React.Dispatch<React.SetStateAction<CatBreed[]>>;
   catDetailsList: CatDetails[];
   setCatDetailsList: React.Dispatch<React.SetStateAction<CatDetails[]>>;
+  catsDisplayed: CatDetails[];
+  setCatsDisplayed: React.Dispatch<React.SetStateAction<CatDetails[]>>;
 };
 
 const iAppContextState = {
@@ -41,6 +43,8 @@ const iAppContextState = {
   setCatBreedList: () => {},
   catDetailsList: [],
   setCatDetailsList: () => {},
+  catsDisplayed: [],
+  setCatsDisplayed: () => {},
 };
 
 export const AppContext = createContext<AppContextType>(iAppContextState);
@@ -52,8 +56,9 @@ const App = () => {
   });
 
   const [catBreedList, setCatBreedList] = useState<CatBreed[]>([]);
-
   const [catDetailsList, setCatDetailsList] = useState<CatDetails[]>([]);
+  const [catsDisplayed, setCatsDisplayed] = useState<CatDetails[]>([]);
+
   const client = new QueryClient();
   return (
     <div className="App">
@@ -65,6 +70,8 @@ const App = () => {
           setCatBreedList,
           catDetailsList,
           setCatDetailsList,
+          catsDisplayed,
+          setCatsDisplayed,
         }}
       >
         <QueryClientProvider client={client}>
