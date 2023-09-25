@@ -25,19 +25,16 @@ const DropDown: React.FC = () => {
   const {
     data: catBreeds,
     isFetching,
+    isLoading,
     isError,
-  } = useQuery(
-    ["catBreeds"],
-    async () => {
-      const res = await Axios.get(catAPIURL + breedsEndpoint, {
-        headers: {
-          "x-api-key": process.env.REACT_APP_API_KEY,
-        },
-      });
-      return res.data;
-    },
-    { enabled: breedSelect.name === "Select Breed" }
-  );
+  } = useQuery(["catBreeds", breedSelect], async () => {
+    const res = await Axios.get(catAPIURL + breedsEndpoint, {
+      headers: {
+        "x-api-key": process.env.REACT_APP_API_KEY,
+      },
+    });
+    return res.data;
+  });
 
   if (isFetching) {
     return <h1>Loading DropDown...</h1>;

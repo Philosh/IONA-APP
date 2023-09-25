@@ -46,7 +46,6 @@ const CatList: React.FC = () => {
     refetch,
     isError,
   } = useQuery(["catList"], async () => {
-    console.log("Request sent");
     const res = await Axios.get(catAPIURL + catImagesEndPoint, {
       headers: {
         "x-api-key": process.env.REACT_APP_API_KEY,
@@ -76,7 +75,6 @@ const CatList: React.FC = () => {
 
   const handleShowMoreCats = () => {
     ref.current += catsPerLoad;
-    console.log("ref ", ref.current);
     setTotalCats(catList.slice(0, ref.current));
   };
 
@@ -91,6 +89,9 @@ const CatList: React.FC = () => {
         “Apologies but we could not this cat for you at this time! Miau!”
       </Alert>
     );
+  }
+  if (breedSelect.name === "Select Breed") {
+    return <p style={{ marginTop: "2em" }}>No Cats available</p>;
   } else
     return (
       <div>
