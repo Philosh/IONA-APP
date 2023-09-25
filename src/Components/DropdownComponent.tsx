@@ -3,7 +3,8 @@ import Axios from "axios";
 import styled from "styled-components";
 import { Dropdown, Alert } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
-import { AppContext, CatBreed } from "../App";
+import { AppContext } from "../App";
+import { CatBreed } from "../ModelTypes/Models";
 
 const catAPIURL = process.env.REACT_APP_API_URL;
 const breedsEndpoint = "/breeds";

@@ -1,13 +1,11 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { AppContext, CatDetails } from "../App";
+import React, { useContext, useEffect, useRef } from "react";
+import { AppContext } from "../App";
+import { CatDetails } from "../ModelTypes/Models";
 import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 import "../App.css";
-import { Button, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
-import { Col, Container, Image, Row } from "react-bootstrap";
-
+import { Col, Container, Image, Row, Button, Alert } from "react-bootstrap";
 import Axios from "axios";
 
 const StyledImage = styled(Image)`

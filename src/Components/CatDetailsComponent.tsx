@@ -1,9 +1,7 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Card, Container, Button, Alert } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import Axios from "axios";
-import { Link } from "react-router-dom";
-
 import "../App.css";
 
 const catAPIURL = process.env.REACT_APP_API_URL;

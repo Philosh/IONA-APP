@@ -3,38 +3,11 @@ import { useState, createContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import { CatDetails, CatBreed, AppContextType } from "./ModelTypes/Models";
 import DropDown from "./Components/DropdownComponent";
 import CatList from "./Components/CatListComponent";
-import CatDetails from "./Components/CatDetailsComponent";
-
-export type CatDetails = {
-  id: string;
-  height: number;
-  weight: number;
-  url: string;
-};
-
-export type CatBreed = {
-  id: string;
-  name: string;
-};
-
-type AppContextType = {
-  breedSelect: {
-    name: string;
-    id: string;
-  };
-  setBreedSelect: React.Dispatch<
-    React.SetStateAction<{ name: string; id: string }>
-  >;
-  catBreedList: CatBreed[];
-  setCatBreedList: React.Dispatch<React.SetStateAction<CatBreed[]>>;
-  catDetailsList: CatDetails[];
-  setCatDetailsList: React.Dispatch<React.SetStateAction<CatDetails[]>>;
-  catsDisplayed: CatDetails[];
-  setCatsDisplayed: React.Dispatch<React.SetStateAction<CatDetails[]>>;
-};
+import CatDetailComponent from "./Components/CatDetailsComponent";
+export type { AppContextType } from "./ModelTypes/Models";
 
 const iAppContextState = {
   breedSelect: { name: "Select Breed", id: "" },
@@ -88,7 +61,7 @@ const App = () => {
                   </>
                 }
               ></Route>
-              <Route path="/:id" element={<CatDetails />}></Route>
+              <Route path="/:id" element={<CatDetailComponent />}></Route>
             </Routes>
           </Router>
         </QueryClientProvider>
