@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { AppContext } from "../App";
+import { AppContext, CatDetails } from "../App";
 import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 import "../App.css";
@@ -9,13 +9,6 @@ import { Link } from "react-router-dom";
 import { Col, Container, Image, Row } from "react-bootstrap";
 
 import Axios from "axios";
-
-type CatImage = {
-  id: string;
-  height: number;
-  weight: number;
-  url: string;
-};
 
 const StyledImage = styled(Image)`
   width: 100%;
@@ -36,46 +29,66 @@ const ImageDiv = styled.div`
 
 const catAPIURL = process.env.REACT_APP_API_URL;
 const CatList: React.FC = () => {
-  const { breedSelect } = useContext(AppContext);
+  const { breedSelect, catDetailsList, setCatDetailsList } =
+    useContext(AppContext);
   const nImages = breedSelect.id === "" ? "12" : "100";
   const catImagesEndPoint = `/images/search?limit=${nImages}&breed_ids=${breedSelect.id}&api_key=${process.env.REACT_APP_API_KEY}`;
+
+  const [totalCats, setTotalCats] = useState<CatDetails[]>([]);
+  const prevSelectRef = useRef<{ name: string; id: string }>(breedSelect);
+  const catsPerLoad = 6;
 
   const {
     data: catList,
     isFetching,
     refetch,
     isError,
-  } = useQuery(["catList"], async () => {
-    const res = await Axios.get(catAPIURL + catImagesEndPoint, {
-      headers: {
-        "x-api-key": process.env.REACT_APP_API_KEY,
-      },
-    });
-    return res.data;
-  });
-
-  const [totalCats, setTotalCats] = useState<CatImage[]>();
-  const catsPerLoad = 6;
+  } = useQuery(
+    ["catList"],
+    async () => {
+      console.log("Request sent");
+      const res = await Axios.get(catAPIURL + catImagesEndPoint, {
+        headers: {
+          "x-api-key": process.env.REACT_APP_API_KEY,
+        },
+      });
+      return res.data;
+    },
+    { enabled: catDetailsList === undefined || catDetailsList.length === 0 }
+  );
 
   const ref = useRef(catsPerLoad);
 
   useEffect(() => {
-    if (catList) {
-      setTotalCats(catList.slice(0, catsPerLoad));
-      ref.current += catsPerLoad;
-    } else {
-      setTotalCats(catList);
+    if (catList?.length > 0) {
+      setCatDetailsList(catList);
     }
   }, [catList]);
 
   useEffect(() => {
+    console.log("trigerred");
     ref.current = 0;
-    refetch();
+    console.log("catDetailsList", catDetailsList);
+
+    if (catDetailsList === undefined || catDetailsList.length === 0) {
+      prevSelectRef.current = breedSelect;
+      refetch();
+    } else if (prevSelectRef.current.name !== breedSelect.name) {
+      prevSelectRef.current = breedSelect;
+      refetch();
+    }
   }, [breedSelect]);
+
+  useEffect(() => {
+    if (catDetailsList?.length > 0) {
+      setTotalCats(catDetailsList.slice(0, catsPerLoad));
+    }
+    ref.current += catsPerLoad;
+  }, [catDetailsList]);
 
   const handleShowMoreCats = () => {
     ref.current += catsPerLoad;
-    setTotalCats(catList.slice(0, ref.current));
+    setTotalCats(catDetailsList.slice(0, ref.current));
   };
 
   if (isFetching) {
@@ -97,7 +110,7 @@ const CatList: React.FC = () => {
       <div>
         <ImageContainer>
           <Row>
-            {totalCats?.map((cat: CatImage) => {
+            {catDetailsList?.map((cat: CatDetails) => {
               return (
                 <ImageCol xs={6} md={3} lg={3} key={cat.id}>
                   <ImageDiv>
@@ -113,7 +126,7 @@ const CatList: React.FC = () => {
               );
             })}
           </Row>
-          {ref.current < catList.length + catsPerLoad && (
+          {ref.current < totalCats.length + catsPerLoad && (
             <Button
               style={{ float: "left", marginTop: "3em" }}
               variant="success"

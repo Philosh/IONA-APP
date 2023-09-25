@@ -8,6 +8,18 @@ import DropDown from "./Components/DropdownComponent";
 import CatList from "./Components/CatListComponent";
 import CatDetails from "./Components/CatDetailsComponent";
 
+export type CatDetails = {
+  id: string;
+  height: number;
+  weight: number;
+  url: string;
+};
+
+export type CatBreed = {
+  id: string;
+  name: string;
+};
+
 type AppContextType = {
   breedSelect: {
     name: string;
@@ -16,11 +28,19 @@ type AppContextType = {
   setBreedSelect: React.Dispatch<
     React.SetStateAction<{ name: string; id: string }>
   >;
+  catBreedList: CatBreed[];
+  setCatBreedList: React.Dispatch<React.SetStateAction<CatBreed[]>>;
+  catDetailsList: CatDetails[];
+  setCatDetailsList: React.Dispatch<React.SetStateAction<CatDetails[]>>;
 };
 
 const iAppContextState = {
   breedSelect: { name: "Select Breed", id: "" },
   setBreedSelect: () => {},
+  catBreedList: [],
+  setCatBreedList: () => {},
+  catDetailsList: [],
+  setCatDetailsList: () => {},
 };
 
 export const AppContext = createContext<AppContextType>(iAppContextState);
@@ -31,10 +51,22 @@ const App = () => {
     id: "",
   });
 
+  const [catBreedList, setCatBreedList] = useState<CatBreed[]>([]);
+
+  const [catDetailsList, setCatDetailsList] = useState<CatDetails[]>([]);
   const client = new QueryClient();
   return (
     <div className="App">
-      <AppContext.Provider value={{ breedSelect, setBreedSelect }}>
+      <AppContext.Provider
+        value={{
+          breedSelect,
+          setBreedSelect,
+          catBreedList,
+          setCatBreedList,
+          catDetailsList,
+          setCatDetailsList,
+        }}
+      >
         <QueryClientProvider client={client}>
           <Router>
             <Routes>

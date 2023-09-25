@@ -16,7 +16,8 @@ const Cat: React.FC = () => {
     data: catDetails,
     isFetching,
     isError,
-  } = useQuery(["catDetails"], async () => {
+  } = useQuery(["catetails"], async () => {
+    console.log("URL", catAPIURL + catDetailEndPoint);
     const res = await Axios.get(catAPIURL + catDetailEndPoint, {
       headers: {
         "x-api-key": process.env.REACT_APP_API_KEY,
@@ -40,6 +41,15 @@ const Cat: React.FC = () => {
     );
   }
 
+  if (catDetails.breeds === undefined) {
+    return (
+      <Link to={"/"}>
+        <Button className="backButton" variant="primary">
+          Back
+        </Button>
+      </Link>
+    );
+  }
   const catInfo = catDetails.breeds[0];
   return (
     <Container>
