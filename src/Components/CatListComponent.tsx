@@ -42,7 +42,6 @@ const CatList: React.FC = () => {
 
   const prevSelectName = useRef<string>(breedSelect.name);
   const catsPerLoad = 6;
-  console.log("catdisplayed", catsDisplayed);
   const {
     data: catList,
     isFetching,
@@ -80,7 +79,6 @@ const CatList: React.FC = () => {
 
   useEffect(() => {
     if (catDetailsList?.length > 0) {
-      console.log("m here 1");
       if (prevSelectName.current !== breedSelect.name) {
         setCatsDisplayed(catDetailsList.slice(0, catsPerLoad));
         prevSelectName.current = breedSelect.name;
@@ -90,7 +88,6 @@ const CatList: React.FC = () => {
   }, [catDetailsList]);
 
   const handleShowMoreCats = () => {
-    console.log("Set here");
     ref.current += catsPerLoad;
     setCatsDisplayed(catDetailsList.slice(0, ref.current));
   };

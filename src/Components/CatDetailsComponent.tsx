@@ -17,7 +17,6 @@ const Cat: React.FC = () => {
     isFetching,
     isError,
   } = useQuery(["catetails"], async () => {
-    console.log("URL", catAPIURL + catDetailEndPoint);
     const res = await Axios.get(catAPIURL + catDetailEndPoint, {
       headers: {
         "x-api-key": process.env.REACT_APP_API_KEY,
