@@ -67,7 +67,7 @@ const CatList: React.FC = () => {
 
   useEffect(() => {
     console.log("trigerred");
-    ref.current = 0;
+
     console.log("catDetailsList", catDetailsList);
 
     if (catDetailsList === undefined || catDetailsList.length === 0) {
@@ -75,6 +75,7 @@ const CatList: React.FC = () => {
       refetch();
     } else if (prevSelectRef.current.name !== breedSelect.name) {
       prevSelectRef.current = breedSelect;
+      ref.current = 0;
       refetch();
     }
   }, [breedSelect]);
@@ -110,7 +111,7 @@ const CatList: React.FC = () => {
       <div>
         <ImageContainer>
           <Row>
-            {catDetailsList?.map((cat: CatDetails) => {
+            {totalCats?.map((cat: CatDetails) => {
               return (
                 <ImageCol xs={6} md={3} lg={3} key={cat.id}>
                   <ImageDiv>
