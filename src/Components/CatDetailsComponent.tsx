@@ -2,6 +2,8 @@ import { useParams } from "react-router-dom";
 import { Card, Container, Button } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import Axios from "axios";
+import { AppContext } from "../App";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import "../App.css";
@@ -9,9 +11,9 @@ import "../App.css";
 const catAPIURL = process.env.REACT_APP_API_URL;
 
 const Cat: React.FC = () => {
+  const { breedSelect } = useContext(AppContext);
   const { id: catId } = useParams();
   const catDetailEndPoint = `/images/${catId}`;
-  console.log("CatDetailEndpoint", catDetailEndPoint);
 
   const { data: catDetails, isLoading } = useQuery(["catDetails"], async () => {
     const res = await Axios.get(catAPIURL + catDetailEndPoint, {
@@ -28,7 +30,6 @@ const Cat: React.FC = () => {
 
   const catInfo = catDetails.breeds[0];
 
-  console.log("catId", catId);
   return (
     <Container>
       <Card

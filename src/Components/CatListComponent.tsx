@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { AppContext } from "../App";
 import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
@@ -53,37 +53,68 @@ const CatList: React.FC = () => {
     return res.data;
   });
 
+  const [catListToShow, setCatListToShow] = useState<CatImage[]>();
+  const [totalCats, setTotalCats] = useState<CatImage[]>();
+  const catsPerLoad = 6;
+
+  const ref = useRef(catsPerLoad);
+
   useEffect(() => {
+    if (catList) {
+      setTotalCats(catList.slice(0, catsPerLoad));
+      ref.current += catsPerLoad;
+    } else {
+      setTotalCats(catList);
+    }
+  }, [catList]);
+
+  useEffect(() => {
+    ref.current = 0;
     refetch();
   }, [breedSelect]);
 
+  const handleShowMoreCats = () => {
+    ref.current += catsPerLoad;
+    console.log("ref ", ref.current);
+    setTotalCats(catList.slice(0, ref.current));
+  };
+
   if (isLoading) {
     return <h1>Loading...</h1>;
-  }
+  } else
+    return (
+      <div>
+        <ImageContainer>
+          <Row>
+            {totalCats?.map((cat: CatImage) => {
+              return (
+                <ImageCol xs={6} md={3} lg={3} key={cat.id}>
+                  <ImageDiv>
+                    <StyledImage src={cat.url}></StyledImage>
 
-  return (
-    <div>
-      <ImageContainer>
-        <Row>
-          {catList.map((cat: CatImage) => {
-            return (
-              <ImageCol xs={6} md={3} lg={3} key={cat.id}>
-                <ImageDiv>
-                  <StyledImage src={cat.url}></StyledImage>
-
-                  <Link to={`/${cat.id}`}>
-                    <Button className="detailButton" variant="primary">
-                      Details
-                    </Button>
-                  </Link>
-                </ImageDiv>
-              </ImageCol>
-            );
-          })}
-        </Row>
-      </ImageContainer>
-    </div>
-  );
+                    <Link to={`/${cat.id}`}>
+                      <Button className="detailButton" variant="primary">
+                        Details
+                      </Button>
+                    </Link>
+                  </ImageDiv>
+                </ImageCol>
+              );
+            })}
+          </Row>
+          {catList?.length}
+          {ref.current < catList.length + catsPerLoad && (
+            <Button
+              style={{ float: "left", marginTop: "3em" }}
+              variant="success"
+              onClick={handleShowMoreCats}
+            >
+              Load more
+            </Button>
+          )}
+        </ImageContainer>
+      </div>
+    );
 };
 
 export default CatList;
