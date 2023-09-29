@@ -2,7 +2,7 @@
 
 This project is a simple react application (Single Page Application) which queries and displays cat images from an API.
 
-Demo [here].
+Demo [here].(Might take a minute to load for the first time).
 
 ## Execution
 
