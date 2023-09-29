@@ -1,46 +1,38 @@
-# Getting Started with Create React App
+# IONA-APP : A cat images viewer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a simple react application (Single Page Application) which queries and displays cat images from an API.
 
-## Available Scripts
+Demo [here].(Might take a minute to load for the first time).
+
+## Execution
 
 In the project directory, you can run:
 
 ### `npm start`
 
-Runs the app in the development mode.\
+This will run the project in development mode.
+
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Additionally .env file has to be configured.
 
-### `npm test`
+Add these variables in .env file which should be located in root directory:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+# api-url
+REACT_APP_API_URL=https://api.thecatapi.com/v1
 
-### `npm run build`
+# x-api-key
+REACT_APP_API_KEY=<your_api_key>
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+A personal api key can be generated from the [Cat API]
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<p align="center">
+<img class="img-fluid" src="https://github.com/Philosh/IONA-APP/tree/master/public/assets/image1.jpg?raw=true" alt="drawing" width="50%"/>
+<img class="img-fluid"
+src="https://github.com/Philosh/IONA-APP/tree/master/public/assets/image2.jpg?raw=true" alt="drawing" width="50%"/>
+</p>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+[Cat API]:<[https://docs.thecatapi.com/](https://docs.thecatapi.com/)>
+[here]:<[https://iona-app.fly.dev/]>
