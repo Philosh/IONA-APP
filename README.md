@@ -28,5 +28,11 @@ REACT_APP_API_KEY=<your_api_key>
 
 A personal api key can be generated from the [Cat API]
 
+<p align="center">
+<img class="img-fluid" src="https://github.com/Philosh/IONA-APP/tree/master/public/assets/image1.jpg?raw=true" alt="drawing" width="50%"/>
+<img class="img-fluid"
+src="https://github.com/Philosh/IONA-APP/tree/master/public/assets/image2.jpg?raw=true" alt="drawing" width="50%"/>
+</p>
+
 [Cat API]:<[https://docs.thecatapi.com/](https://docs.thecatapi.com/)>
 [here]:<[https://iona-app.fly.dev/]>
