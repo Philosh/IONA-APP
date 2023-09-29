@@ -34,5 +34,5 @@ A personal api key can be generated from the [Cat API]
 src="https://github.com/Philosh/IONA-APP/blob/master/public/assets/images/image2.jpg?raw=true"  alt="drawing"  width="50%"/>
 </p>
 
-[Cat API]:<[https://docs.thecatapi.com/]>
-[here]:<[https://iona-app.fly.dev/]>
+[Cat API]:https://docs.thecatapi.com/
+[here]:https://iona-app.fly.dev/
