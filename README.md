@@ -2,6 +2,8 @@
 
 This project is a simple react application (Single Page Application) which queries and displays cat images from an API.
 
+Demo [here].
+
 ## Execution
 
 In the project directory, you can run:
@@ -27,3 +29,4 @@ REACT_APP_API_KEY=<your_api_key>
 A personal api key can be generated from the [Cat API]
 
 [Cat API]:<[https://docs.thecatapi.com/](https://docs.thecatapi.com/)>
+[here]:<[https://iona-app.fly.dev/]>
