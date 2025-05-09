@@ -33,7 +33,7 @@ const Cat: React.FC = () => {
         style={{ width: "80%", marginLeft: "auto", marginRight: "auto" }}
         variant="warning"
       >
-        “Apologies but we could not load new cats for you at this time! Miau!”
+        “Apologies but we could not load new cats f or you at this time! Miau!”
       </Alert>
     );
   }
@@ -42,7 +42,7 @@ const Cat: React.FC = () => {
     return (
       <Link to={"/"}>
         <Button className="backButton" variant="primary">
-          Back
+          Bac k
         </Button>
       </Link>
     );
