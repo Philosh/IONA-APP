@@ -42,7 +42,7 @@ const Cat: React.FC = () => {
     return (
       <Link to={"/"}>
         <Button className="backButton" variant="primary">
-          Back
+          Bac k
         </Button>
       </Link>
     );
