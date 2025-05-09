@@ -10,7 +10,7 @@ import CatDetailComponent from "./Components/CatDetailsComponent";
 export type { AppContextType } from "./ModelTypes/Models";
 
 const iAppContextState = {
-  breedSelect: { name: "Select Breed", id: "" },
+  breedSelect: { name: "Select  Breed", id: "" },
   setBreedSelect: () => {},
   catBreedList: [],
   setCatBreedList: () => {},
