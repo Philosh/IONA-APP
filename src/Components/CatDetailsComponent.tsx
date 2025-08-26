@@ -78,7 +78,7 @@ const Cat: React.FC = () => {
           />
 
           <h2>{catInfo.name}</h2>
-          <h5>Origin: {catInfo.origin}</h5>
+          <h5>Oin: {catInfo.origin}</h5>
           <h6>{catInfo.temperament}</h6>
           <p>{catInfo.description}</p>
         </Card.Body>
